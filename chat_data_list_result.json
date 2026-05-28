@@ -1,0 +1,206 @@
+{
+  "code": 0,
+  "msg": "OK",
+  "data": {
+    "pageNum": 1,
+    "pageSize": 10,
+    "pages": 3,
+    "total": 29,
+    "list": [
+      {
+        "msgId": "6134110711427699193_1779867892387_external",
+        "msgType": "text",
+        "action": "send",
+        "sendUserId": "13342292703",
+        "sendUserName": "VIP THINK班主任-西婭老師（週三-週日 12點-21點）",
+        "avatar": "https://wework.qpic.cn/wwpic3az/227496_Vu22AGHaTieB8zC_1778038529/0",
+        "msgTime": 1779867888621,
+        "type": 1,
+        "contactId": "wmN7IECgAAiTNIje9cGpinD86aFAywLw",
+        "recvUserName": "S5顺曦 26625901",
+        "content": {
+          "msgTime": 1779867888621,
+          "msgType": "text",
+          "text": "像是專題4比較重要的整十数乘一位数的口算方法之類的，都學習不到啦"
+        }
+      },
+      {
+        "msgId": "16277937470844592352_1779867892393_external",
+        "msgType": "image",
+        "action": "send",
+        "sendUserId": "13342292703",
+        "sendUserName": "VIP THINK班主任-西婭老師（週三-週日 12點-21點）",
+        "avatar": "https://wework.qpic.cn/wwpic3az/227496_Vu22AGHaTieB8zC_1778038529/0",
+        "msgTime": 1779867888361,
+        "type": 1,
+        "contactId": "wmN7IECgAAiTNIje9cGpinD86aFAywLw",
+        "recvUserName": "S5顺曦 26625901",
+        "content": {
+          "msgTime": 1779867888361,
+          "msgType": "image",
+          "size": 115537,
+          "url": "https://hualala-common.oss-cn-shenzhen.aliyuncs.com/prod/corporate-wechat-backend/6a16a101d17fd40001d1ee04.png",
+          "imageUrl": null,
+          "name": null,
+          "description": null,
+          "ext": null,
+          "duration": null,
+          "width": null,
+          "height": null
+        }
+      },
+      {
+        "msgId": "17919662510793762303_1779867426237_external",
+        "msgType": "text",
+        "action": "send",
+        "sendUserId": "13342292703",
+        "sendUserName": "VIP THINK班主任-西婭老師（週三-週日 12點-21點）",
+        "avatar": "https://wework.qpic.cn/wwpic3az/227496_Vu22AGHaTieB8zC_1778038529/0",
+        "msgTime": 1779867421874,
+        "type": 1,
+        "contactId": "wmN7IECgAAiTNIje9cGpinD86aFAywLw",
+        "recvUserName": "S5顺曦 26625901",
+        "content": {
+          "msgTime": 1779867421874,
+          "msgType": "text",
+          "text": "就是S6級別只能上2個專題左右了，您看看我上面給您發的方案，可以先給寶貝趁著優惠留一個，等之後再有別的安排了，沒有上的課時也是可以全額退款的[拥抱]"
+        }
+      },
+      {
+        "msgId": "6631911545835979422_1779867343244_external",
+        "msgType": "text",
+        "action": "send",
+        "sendUserId": "13342292703",
+        "sendUserName": "VIP THINK班主任-西婭老師（週三-週日 12點-21點）",
+        "avatar": "https://wework.qpic.cn/wwpic3az/227496_Vu22AGHaTieB8zC_1778038529/0",
+        "msgTime": 1779867339452,
+        "type": 1,
+        "contactId": "wmN7IECgAAiTNIje9cGpinD86aFAywLw",
+        "recvUserName": "S5顺曦 26625901",
+        "content": {
+          "msgTime": 1779867339452,
+          "msgType": "text",
+          "text": "媽咪我看了一下，目前這個班級是有學位的~可以安排1/7寶貝開始上課[爱心]"
+        }
+      },
+      {
+        "msgId": "16161545069141522256_1779866878143_external",
+        "msgType": "text",
+        "action": "send",
+        "sendUserId": "13342292703",
+        "sendUserName": "VIP THINK班主任-西婭老師（週三-週日 12點-21點）",
+        "avatar": "https://wework.qpic.cn/wwpic3az/227496_Vu22AGHaTieB8zC_1778038529/0",
+        "msgTime": 1779866874134,
+        "type": 1,
+        "contactId": "wmN7IECgAAiTNIje9cGpinD86aFAywLw",
+        "recvUserName": "S5顺曦 26625901",
+        "content": {
+          "msgTime": 1779866874134,
+          "msgType": "text",
+          "text": "稍等媽咪，我確認一下哈~現在升階學位都很緊張"
+        }
+      },
+      {
+        "msgId": "10185686180217644154_1779866842318_external",
+        "msgType": "image",
+        "action": "send",
+        "sendUserId": "wmN7IECgAAiTNIje9cGpinD86aFAywLw",
+        "sendUserName": "S5顺曦 26625901",
+        "avatar": "http://wx.qlogo.cn/mmhead/qE9MKluetOnPgseIJkXwfevb5Cqf1Ijib4f82ibF5pumc6sppsmvjdXg/0",
+        "msgTime": 1779866838291,
+        "type": 1,
+        "contactId": "wmN7IECgAAiTNIje9cGpinD86aFAywLw",
+        "recvUserName": "VIP THINK班主任-西婭老師（週三-週日 12點-21點）",
+        "content": {
+          "msgTime": 1779866838291,
+          "msgType": "image",
+          "size": 31160,
+          "url": "https://hualala-common.oss-cn-shenzhen.aliyuncs.com/prod/corporate-wechat-backend/6a169d05b0e9ba000189b916.png",
+          "imageUrl": null,
+          "name": null,
+          "description": null,
+          "ext": null,
+          "duration": null,
+          "width": null,
+          "height": null
+        }
+      },
+      {
+        "msgId": "17087876385120947963_1779866827196_external",
+        "msgType": "text",
+        "action": "send",
+        "sendUserId": "wmN7IECgAAiTNIje9cGpinD86aFAywLw",
+        "sendUserName": "S5顺曦 26625901",
+        "avatar": "http://wx.qlogo.cn/mmhead/qE9MKluetOnPgseIJkXwfevb5Cqf1Ijib4f82ibF5pumc6sppsmvjdXg/0",
+        "msgTime": 1779866823133,
+        "type": 1,
+        "contactId": "wmN7IECgAAiTNIje9cGpinD86aFAywLw",
+        "recvUserName": "VIP THINK班主任-西婭老師（週三-週日 12點-21點）",
+        "content": {
+          "msgTime": 1779866823133,
+          "msgType": "text",
+          "text": "可1/7 開始調到周四周五？"
+        }
+      },
+      {
+        "msgId": "8253033998846529790_1779866666274_external",
+        "msgType": "text",
+        "action": "send",
+        "sendUserId": "13342292703",
+        "sendUserName": "VIP THINK班主任-西婭老師（週三-週日 12點-21點）",
+        "avatar": "https://wework.qpic.cn/wwpic3az/227496_Vu22AGHaTieB8zC_1778038529/0",
+        "msgTime": 1779866662586,
+        "type": 1,
+        "contactId": "wmN7IECgAAiTNIje9cGpinD86aFAywLw",
+        "recvUserName": "S5顺曦 26625901",
+        "content": {
+          "msgTime": 1779866662586,
+          "msgType": "text",
+          "text": "辛苦媽咪看完方案之後回復我一下，我也好去跟狸花貓老師同步升階名額[拥抱]"
+        }
+      },
+      {
+        "msgId": "15637478149519537868_1779866560171_external",
+        "msgType": "text",
+        "action": "send",
+        "sendUserId": "13342292703",
+        "sendUserName": "VIP THINK班主任-西婭老師（週三-週日 12點-21點）",
+        "avatar": "https://wework.qpic.cn/wwpic3az/227496_Vu22AGHaTieB8zC_1778038529/0",
+        "msgTime": 1779866556224,
+        "type": 1,
+        "contactId": "wmN7IECgAAiTNIje9cGpinD86aFAywLw",
+        "recvUserName": "S5顺曦 26625901",
+        "content": {
+          "msgTime": 1779866556224,
+          "msgType": "text",
+          "text": "Plan A：原價 7488，活動價 5688 元，共 76 課時（含8节打卡赠课），單價74元；暑期班\nPlan B：原價 10888，活動價 8188元，共112課時（含12节打卡赠课），單價73元；直通S6\n\n順曦寶貝在豌豆學習了很長時間了，相信媽咪也是了解，因為每年都投入了大量的人力物力去研發課程，所以我們的課單價每年都會上調，所以像能做到75元不到的價格，也是因為618大促加上版本升級前的福利，才能做到這個價格的[握手]"
+        }
+      },
+      {
+        "msgId": "16518306152838200091_1779866308161_external",
+        "msgType": "image",
+        "action": "send",
+        "sendUserId": "13342292703",
+        "sendUserName": "VIP THINK班主任-西婭老師（週三-週日 12點-21點）",
+        "avatar": "https://wework.qpic.cn/wwpic3az/227496_Vu22AGHaTieB8zC_1778038529/0",
+        "msgTime": 1779866304582,
+        "type": 1,
+        "contactId": "wmN7IECgAAiTNIje9cGpinD86aFAywLw",
+        "recvUserName": "S5顺曦 26625901",
+        "content": {
+          "msgTime": 1779866304582,
+          "msgType": "image",
+          "size": 498769,
+          "url": "https://hualala-common.oss-cn-shenzhen.aliyuncs.com/prod/corporate-wechat-backend/6a169ae7b0e9ba000189b4a7.png",
+          "imageUrl": null,
+          "name": null,
+          "description": null,
+          "ext": null,
+          "duration": null,
+          "width": null,
+          "height": null
+        }
+      }
+    ]
+  }
+}
