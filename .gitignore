@@ -1,0 +1,25 @@
+# === 安全：包含硬编码 Token 的脚本 ===
+# 所有 JS 文件都含有 API 密钥，禁止推送到公开仓库
+*.js
+
+# === 泄露风险：含员工个人信息的数据 ===
+all_users.json
+open_users.json
+
+# === 过大文件 (>100MB limit / 影响仓库速度) ===
+gangao_messages_v2.json
+user_contacts.json
+
+# === WorkBuddy 内部数据 ===
+.workbuddy/
+
+# === 含用户ID的数据文件 ===
+gangao_users.json
+gangao_recheck_result.json
+
+# === 项目无关 ===
+.node_modules/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
