@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>港澳组企业微信聊天数据分析报告</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif; background: #f5f7fb; color: #333; }
+.header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px 40px; }
+.header h1 { font-size: 28px; margin-bottom: 8px; }
+.header p { opacity: 0.9; font-size: 14px; }
+.stats-row { display: flex; gap: 20px; padding: 30px 40px; flex-wrap: wrap; }
+.stat-card { background: white; border-radius: 12px; padding: 20px 24px; flex: 1; min-width: 160px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.stat-card .value { font-size: 32px; font-weight: 700; color: #667eea; }
+.stat-card .label { font-size: 13px; color: #888; margin-top: 4px; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding: 0 40px 40px; max-width: 1400px; margin: 0 auto; }
+.card { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.card.full { grid-column: 1 / -1; }
+.card h3 { font-size: 16px; color: #444; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #f0f0f0; }
+canvas { max-height: 350px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { background: #f8f9fc; padding: 10px 12px; text-align: left; font-weight: 600; color: #555; border-bottom: 2px solid #e8e8e8; }
+td { padding: 8px 12px; border-bottom: 1px solid #f0f0f0; }
+tr:hover { background: #f8f9ff; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+.badge-1 { background: #e8f5e9; color: #2e7d32; }
+.badge-2 { background: #fff3e0; color: #e65100; }
+.badge-3 { background: #e3f2fd; color: #1565c0; }
+.sample-item { padding: 10px 12px; border-bottom: 1px solid #f5f5f5; font-size: 13px; }
+.sample-item .user { color: #667eea; font-weight: 600; margin-right: 8px; }
+.sample-item .text { color: #555; }
+@media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>📊 港澳组企业微信聊天数据分析</h1>
+  <p>豌豆思维 · 2026-05-27 生成 · 共 11856 条消息</p>
+</div>
+
+<div class="stats-row">
+  <div class="stat-card"><div class="value">43</div><div class="label">港澳组成员</div></div>
+  <div class="stat-card"><div class="value">11,856</div><div class="label">总消息数</div></div>
+  <div class="stat-card"><div class="value">537</div><div class="label">活跃对话</div></div>
+  <div class="stat-card"><div class="value">73.8%</div><div class="label">文字消息占比</div></div>
+  <div class="stat-card"><div class="value">9</div><div class="label">活跃天数</div></div>
+</div>
+
+<div class="grid">
+  <div class="card"><h3>📈 每日消息量趋势</h3><canvas id="dailyChart"></canvas></div>
+  <div class="card"><h3>🏢 部门消息分布</h3><canvas id="deptChart"></canvas></div>
+  <div class="card"><h3>🔑 高频关键词</h3><canvas id="keywordChart"></canvas></div>
+  <div class="card"><h3>🏆 Top 15 活跃成员</h3><canvas id="topUserChart"></canvas></div>
+  <div class="card full"><h3>👥 全组成员消息统计</h3>
+    <div style="max-height:500px;overflow-y:auto">
+      <table><thead><tr><th>#</th><th>姓名</th><th>部门</th><th>对话数</th><th>消息数</th><th>文字</th><th>图片</th></tr></thead>
+      <tbody id="userTableBody"></tbody></table>
+    </div>
+  </div>
+  <div class="card full"><h3>💬 消息样本</h3>
+    <div id="samples"></div>
+  </div>
+</div>
+
+<script>
+const DATA = {"users":[{"name":"林明怡","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":360,"imageMsgs":45},{"name":"溫老师","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":270,"imageMsgs":165},{"name":"彤彤老师","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":285,"imageMsgs":105},{"name":"然然老师","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":300,"imageMsgs":90},{"name":"悠悠老师","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":300,"imageMsgs":45},{"name":"米萊老師","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":375,"imageMsgs":60},{"name":"優優老師","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":300,"imageMsgs":105},{"name":"Kiki老師","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":375,"imageMsgs":60},{"name":"文文老师","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":375,"imageMsgs":75},{"name":"Lumi","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":375,"imageMsgs":60},{"name":"加菲老师","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":390,"imageMsgs":45},{"name":"Max老師","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":345,"imageMsgs":105},{"name":"孟老师","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":390,"imageMsgs":60},{"name":"文慧老师","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":300,"imageMsgs":90},{"name":"李穎杰","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":375,"imageMsgs":60},{"name":"河豚老师","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":300,"imageMsgs":135},{"name":"Eason老师","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":360,"imageMsgs":60},{"name":"小麥老师","dept":"港澳台1组","conversations":2,"totalContacts":2,"messages":16,"textMsgs":6,"imageMsgs":6},{"name":"子芽老师","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":285,"imageMsgs":165},{"name":"jennie老师","dept":"港澳台1组","conversations":0,"totalContacts":0,"messages":0,"textMsgs":0,"imageMsgs":0},{"name":"溫暖老師","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":270,"imageMsgs":150},{"name":"王旭","dept":"港澳台1组","conversations":0,"totalContacts":0,"messages":0,"textMsgs":0,"imageMsgs":0},{"name":"Kenny老师","dept":"港澳台2组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":330,"imageMsgs":105},{"name":"大白老师","dept":"港澳台2组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":225,"imageMsgs":195},{"name":"Queenie老師","dept":"港澳台2组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":285,"imageMsgs":135},{"name":"清禾老师","dept":"港澳台2组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":210,"imageMsgs":240},{"name":"Hannah老师","dept":"港澳台2组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":345,"imageMsgs":75},{"name":"小尤老师","dept":"港澳台2组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":270,"imageMsgs":150},{"name":"王老师","dept":"港澳台2组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":360,"imageMsgs":75},{"name":"小嵐老師","dept":"港澳台2组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":405,"imageMsgs":30},{"name":"小濤老師","dept":"港澳台2组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":360,"imageMsgs":45},{"name":"潘小雅","dept":"港澳台2组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":390,"imageMsgs":60},{"name":"王老師","dept":"港澳台2组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":390,"imageMsgs":60},{"name":"向老师","dept":"港澳台2组","conversations":2,"totalContacts":2,"messages":60,"textMsgs":54,"imageMsgs":6},{"name":"謝老师","dept":"港澳台2组","conversations":8,"totalContacts":8,"messages":240,"textMsgs":216,"imageMsgs":0},{"name":"孫豪遠","dept":"港澳台2组","conversations":0,"totalContacts":0,"messages":0,"textMsgs":0,"imageMsgs":0},{"name":"林杰聰","dept":"港澳台2组","conversations":0,"totalContacts":0,"messages":0,"textMsgs":0,"imageMsgs":0},{"name":"蘆葦老師","dept":"大连港澳组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":360,"imageMsgs":60},{"name":"鹿鹿老師","dept":"大连港澳组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":300,"imageMsgs":150},{"name":"可可老师","dept":"大连港澳组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":330,"imageMsgs":45},{"name":"大朋老師","dept":"大连港澳组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":345,"imageMsgs":75},{"name":"西婭老師","dept":"大连港澳组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":345,"imageMsgs":105},{"name":"芦小珍","dept":"大连港澳组","conversations":0,"totalContacts":0,"messages":0,"textMsgs":0,"imageMsgs":0}],"deptMap":{"港澳台1组":{"users":22,"messages":8566,"conversations":287,"textMsgs":6336,"imgMsgs":null},"港澳台2组":{"users":15,"messages":5250,"conversations":175,"textMsgs":3840,"imgMsgs":null},"大连港澳组":{"users":6,"messages":2250,"conversations":75,"textMsgs":1680,"imgMsgs":null}},"keywordStats":{"续费/续报":30,"排课/上课":75,"请假":360,"优惠/活动":45,"试听":30,"转介绍":15,"退款/退费":111,"投诉":15,"升阶":0,"感谢":38,"作业/练习":0,"比赛/证书":0,"小朋友":2055,"家长":405},"dailyMsgs":[{"date":"2026-04-03","count":54},{"date":"2026-04-18","count":285},{"date":"2026-05-17","count":72},{"date":"2026-05-19","count":34},{"date":"2026-05-23","count":4},{"date":"2026-05-24","count":16},{"date":"2026-05-25","count":16},{"date":"2026-05-26","count":80},{"date":"2026-05-27","count":11295}],"topUsers":[{"name":"林明怡","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":360,"imageMsgs":45},{"name":"溫老师","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":270,"imageMsgs":165},{"name":"彤彤老师","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":285,"imageMsgs":105},{"name":"然然老师","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":300,"imageMsgs":90},{"name":"悠悠老师","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":300,"imageMsgs":45},{"name":"米萊老師","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":375,"imageMsgs":60},{"name":"優優老師","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":300,"imageMsgs":105},{"name":"Kiki老師","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":375,"imageMsgs":60},{"name":"文文老师","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":375,"imageMsgs":75},{"name":"Lumi","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":375,"imageMsgs":60},{"name":"加菲老师","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":390,"imageMsgs":45},{"name":"Max老師","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":345,"imageMsgs":105},{"name":"孟老师","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":390,"imageMsgs":60},{"name":"文慧老师","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":300,"imageMsgs":90},{"name":"李穎杰","dept":"港澳台1组","conversations":15,"totalContacts":30,"messages":450,"textMsgs":375,"imageMsgs":60}],"samples":[{"user":"林明怡","text":"dada媽咪你好，主講老師幫我哋用員工積分申請咗一個比較抵嘅課包，你睇到信息覆下我，我同你講解下😊","time":"2026-05-27T10:21:46.992Z"},{"user":"林明怡","text":"舊嘅仲有2堂，加埋新嘅，一共打完有6堂~","time":"2026-05-27T10:20:50.752Z"},{"user":"林明怡","text":"冇問題~~我每週二都會發信息卑媽咪嘅，如果媽咪未打我再提提你","time":"2026-05-27T10:19:37.701Z"},{"user":"林明怡","text":"📣dada家长您好～\n\n宝贝在2026-05-27 16:00:00的豌豆益智课程请假未到课。为了不影响学习连贯性、保证学习效果，建议您提醒宝贝及时回顾本节课的知识点哦～\n课程回放查看路径：打开学生","time":"2026-05-27T09:45:01.260Z"},{"user":"林明怡","text":"恭喜曬！同寶貝續費成功，多謝你嘅支持～\n\n而家有個【續費專屬福利】比你：48小時內邀請2位小朋友今個月試堂，加送8堂直播课！名額有限，身邊有3–11歲小朋友，隨時可以介紹比我喔！","time":"2026-05-27T08:28:33.029Z"},{"user":"林明怡","text":"\n如有圖中未有顯示嘅其他續費額外贈送權益，請於7個工作日後，聯絡班主任查詢及確認贈送權益到賬情況。","time":"2026-05-27T08:26:47.002Z"},{"user":"林明怡","text":"【系統通知】宝贝可可家長您好，多謝您嘅信任，您購買的VIP THINK套餐信息如下，請確認個人相關權益~\n","time":"2026-05-27T08:26:33.032Z"},{"user":"林明怡","text":"會先用完舊嘅課包再激活新嘅課包嘅","time":"2026-05-27T08:25:56.403Z"},{"user":"林明怡","text":"收到媽咪，我呢邊幫你安排課時哈~","time":"2026-05-27T08:25:37.800Z"},{"user":"林明怡","text":"这是一条引用/回复消息：\n\"VIP-THINK 小林老師：\n而家有升階特惠課包我發俾您睇睇\n618預售活動：\n\n👉planA： 8088 課包；單價：73.5元 / 節；可以學完完整一個階段\n總課時","time":"2026-05-27T08:21:31.755Z"},{"user":"林明怡","text":"dada媽咪你好，主講老師幫我哋用員工積分申請咗一個比較抵嘅課包，你睇到信息覆下我，我同你講解下😊","time":"2026-05-27T10:21:46.992Z"},{"user":"林明怡","text":"舊嘅仲有2堂，加埋新嘅，一共打完有6堂~","time":"2026-05-27T10:20:50.752Z"},{"user":"林明怡","text":"冇問題~~我每週二都會發信息卑媽咪嘅，如果媽咪未打我再提提你","time":"2026-05-27T10:19:37.701Z"},{"user":"林明怡","text":"📣dada家长您好～\n\n宝贝在2026-05-27 16:00:00的豌豆益智课程请假未到课。为了不影响学习连贯性、保证学习效果，建议您提醒宝贝及时回顾本节课的知识点哦～\n课程回放查看路径：打开学生","time":"2026-05-27T09:45:01.260Z"},{"user":"林明怡","text":"恭喜曬！��寶貝續費成功，多謝你嘅支持～\n\n而家有個【續費專屬福利】比你：48小時內邀請2位小朋友今個月試堂，加送8堂直播课！名額有限，身邊有3–11歲小朋友，隨時可以介紹比我喔！","time":"2026-05-27T08:28:33.029Z"},{"user":"林明怡","text":"\n如有圖中未有顯示嘅其他續費額外贈送權益，請於7個工作日後，聯絡班主任查詢及確認贈送權益到賬情況。","time":"2026-05-27T08:26:47.002Z"},{"user":"林明怡","text":"【系統通知】宝贝可可家長您好，多謝您嘅信任，您購買的VIP THINK套餐信息如下，請確認個人相關權益~\n","time":"2026-05-27T08:26:33.032Z"},{"user":"林明怡","text":"會先用完舊嘅課包再激活新嘅課包嘅","time":"2026-05-27T08:25:56.403Z"},{"user":"林明怡","text":"收到媽咪，我呢邊幫你安排課時哈~","time":"2026-05-27T08:25:37.800Z"},{"user":"林明怡","text":"这是一条引用/回复消息：\n\"VIP-THINK 小林老師：\n而家有升階特惠課包我發俾您睇睇\n618預售活動：\n\n👉planA： 8088 課包；單價：73.5元 / 節；可以學完完整一個階段\n總課時","time":"2026-05-27T08:21:31.755Z"}],"totalMsgs":11856,"totalUsers":43};
+
+// 每日趋势
+new Chart(document.getElementById('dailyChart'), {
+  type: 'line', data: {
+    labels: DATA.dailyMsgs.map(d => d.date.substring(5)),
+    datasets: [{ label: '消息量', data: DATA.dailyMsgs.map(d => d.count), borderColor: '#667eea', backgroundColor: 'rgba(102,126,234,0.1)', fill: true, tension: 0.3, pointRadius: 2 }]
+  },
+  options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+});
+
+// 部门分布
+const deptColors = ['#667eea','#f59e0b','#10b981'];
+new Chart(document.getElementById('deptChart'), {
+  type: 'doughnut', data: {
+    labels: Object.keys(DATA.deptMap),
+    datasets: [{ data: Object.values(DATA.deptMap).map(d => d.messages), backgroundColor: deptColors }]
+  },
+  options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+});
+
+// 关键词
+const kwSorted = Object.entries(DATA.keywordStats).sort((a,b) => b[1]-a[1]).slice(0, 10);
+new Chart(document.getElementById('keywordChart'), {
+  type: 'bar', data: {
+    labels: kwSorted.map(([k]) => k),
+    datasets: [{ label: '出现次数', data: kwSorted.map(([,c]) => c), backgroundColor: '#764ba2', borderRadius: 4 }]
+  },
+  options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } } }
+});
+
+// Top 用户
+new Chart(document.getElementById('topUserChart'), {
+  type: 'bar', data: {
+    labels: DATA.topUsers.map(u => u.name),
+    datasets: [{ label: '消息数', data: DATA.topUsers.map(u => u.messages), backgroundColor: '#667eea', borderRadius: 4 }]
+  },
+  options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } } }
+});
+
+// 用户表格
+const tbody = document.getElementById('userTableBody');
+const deptBadges = {'港澳台1组':'badge-1','港澳台2组':'badge-2','大连港澳组':'badge-3'};
+DATA.users.sort((a,b)=>b.messages-a.messages).forEach((u,i)=>{
+  const tr = document.createElement('tr');
+  const badgeClass = deptBadges[u.dept] || '';
+  tr.innerHTML = '<td>'+(i+1)+'</td><td><b>'+u.name+'</b></td><td><span class="badge '+badgeClass+'">'+u.dept+'</span></td><td>'+u.conversations+'</td><td><b>'+u.messages+'</b></td><td>'+u.textMsgs+'</td><td>'+u.imgMsgs+'</td>';
+  tbody.appendChild(tr);
+});
+
+// 消息样本
+const samplesDiv = document.getElementById('samples');
+DATA.samples.forEach(s => {
+  const div = document.createElement('div');
+  div.className = 'sample-item';
+  div.innerHTML = '<span class="user">['+s.user+']</span><span class="text">'+s.text+'</span>';
+  samplesDiv.appendChild(div);
+});
+</script>
+</body>
+</html>
